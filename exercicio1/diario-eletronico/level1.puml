@@ -1,0 +1,17 @@
+@startuml Level1
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Diagrama de contexto para o Sistema de Diário Eletrônico
+
+SHOW_PERSON_OUTLINE()
+
+Person(theacher, "Professor da Instituição", "Professor da instituição, com conta pessoal.")
+Person(student, "Aluno da Instituição", "Aluno da instituição, com conta pessoal.")
+
+System(ib, "Sistema de Diário Eletrônico", "Permite que o professor cadrastre disciplinas e/ou projetos, e tambem possa vincular ou desvincular aluno(s) de disciplinas e/ou projetos.")
+
+Rel(theacher, ib, "Vê os alunos cadastrados em disciplinas e/ou projetos e vincular ou desvincular aluno(s) usando")
+Rel(student, ib, "Vê as disciplinas e/ou projetos que esta vinculado usando")
+
+@enduml

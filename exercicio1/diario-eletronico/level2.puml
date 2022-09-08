@@ -1,0 +1,31 @@
+@startuml Level2
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!include DEVICONS/postgresql.puml
+!include DEVICONS/java.puml
+!include DEVICONS/react_original_wordmark.puml
+
+title Diagrama de contêineres para o Sistema de Diário Eletrônico
+
+SHOW_PERSON_OUTLINE()
+
+Person(theacher, "Professor da Instituição", "Professor da instituição, com conta pessoal.")
+Person(student, "Aluno da Instituição", "Aluno da instituição, com conta pessoal.")
+
+System_Boundary(sys, "Sistema de Diário Eletrônico") {
+
+  Container(spa, "Aplicação de página única (SPA)","Typescript e React", "Fornece todas as funcionalidades do Diário Eletrônico aos professores e alunos por meio do navegador da web.", $sprite = "react_original_wordmark")
+  Container(api, "Aplicativo API", "Java e Spring MVC", "Fornece funcionalidades do Diário Eletrônico via API JSON/HTTPS.", $sprite = "java")
+  ContainerDb(db, "Banco de Dados", "PostgreSQL Database", "Armazena informações de registro do usuário, credenciais autenticadas com hash, registros de acesso etc.", $sprite = "postgresql")
+
+  Rel_L(spa, api, "Faz chamadas de API para", "JSON/HTTPS")
+  Rel(api, db, "Lê e escreve em", "Postgres Protocol")
+
+}
+
+Rel(theacher, spa, "Vê os alunos cadastrados em disciplinas e/ou projetos e vincular ou desvincular aluno(s) usando")
+Rel(student, spa, "Vê as disciplinas e/ou projetos que esta vinculado usando")
+
+@enduml
